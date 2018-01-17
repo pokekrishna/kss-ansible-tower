@@ -1,6 +1,6 @@
 ---
 -
-  host: all-hosts
+  hosts: all-hosts
   tasks:
     -
       name: test connection
