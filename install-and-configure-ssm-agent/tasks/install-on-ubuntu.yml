@@ -1,0 +1,35 @@
+-
+  name: create temporary directory
+  file:
+    path: "{{ temp_dir }}"
+    state: directory
+
+-
+  name: download 64 bit binary
+  get_url:
+    url: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb
+    dest: "{{ temp_dir }}/agent.deb"
+  when: ansible_architecture == "x86_64"
+
+-
+  name: download 32 bit binary
+  get_url:
+    url: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_386/amazon-ssm-agent.deb
+    dest: "{{ temp_dir }}/agent.deb"
+  when: ansible_architecture == "i386"
+
+- 
+  name: install the agent
+  apt:
+    deb: "{{ temp_dir }}/agent.deb"
+  become: yes
+
+-
+  name: test the service (agent) is running
+  service:
+    name: amazon-ssm-agent
+    state: started
+    enabled: yes
+  become: yes
+
+

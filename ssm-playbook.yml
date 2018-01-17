@@ -1,0 +1,4 @@
+-
+  hosts: all-hosts
+  roles:
+    - install-and-configure-ssm-agent

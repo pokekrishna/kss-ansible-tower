@@ -1,0 +1,9 @@
+---
+# tasks file for install-and-configure-ssm-agent
+-
+  include : install-on-ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+
+-
+  include : install-on-centos.yml
+  when: (ansible_distribution == "CentOS") or (ansible_distribution == "RedHat")

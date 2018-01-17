@@ -1,0 +1,3 @@
+---
+# vars file for install-and-configure-ssm-agent
+temp_dir: /tmp/ssm

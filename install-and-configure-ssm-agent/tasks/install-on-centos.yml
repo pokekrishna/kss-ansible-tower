@@ -1,0 +1,32 @@
+-
+  name: create temporary directory
+  file:
+    path: "{{ temp_dir }}"
+    state: directory
+
+-
+  name: download and install 64 bit binary
+  yum:
+    name: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+    state: present
+  when: ansible_architecture == "x86_64"
+  become: yes
+
+-
+  name: download and install 32 bit binary
+  yum:
+    name: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_386/amazon-ssm-agent.rpm
+    state: present
+  when: ansible_architecture == "i386"
+  become: yes
+
+
+-
+  name: test the service (agent) is running
+  service:
+    name: amazon-ssm-agent
+    state: started
+    enabled: yes
+  become: yes
+
+
